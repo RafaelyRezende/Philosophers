@@ -2,21 +2,21 @@
 
 void	opt_main(char **argv)
 {
-	ft_putstr_fd(stdin, argv[1]);
+	ft_putstr_fd(1, argv[1]);
 }
 
 ssize_t	ft_putstr_fd(int fd, char *buff)
 {
-	size_t	lenght;
+	size_t	length;
 	char	*start;
 
-	if (!buff)
+	if (!buff || fd < 0)
 		return (-1);
 	start = buff;
-	lenght = 0;
+	length = 0;
 	while (*buff)
 	{
-		lenght++;
+		length++;
 		buff++;
 	}
 	write(fd, start, length);

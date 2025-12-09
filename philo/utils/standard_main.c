@@ -3,5 +3,5 @@
 
 void	standard_main(char **argv)
 {
-	ft_putstr_fd(stdin, argv[1]);
+	ft_putstr_fd(1, argv[1]);
 }
