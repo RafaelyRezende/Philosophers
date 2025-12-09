@@ -6,6 +6,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (argc == 5)
 		standard_main(argv);
-	opt_main(argv);
+	else
+		opt_main(argv);
 	return (0);
 }
