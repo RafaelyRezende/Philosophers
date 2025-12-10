@@ -1,26 +1,24 @@
 #include "philo.h"
 
-int	ft_atoi(const char *nptr)
+long	ft_atol(const char *nptr)
 {
-	long	res;
-	int		sign;
+	long long	res;
 
 	res = 0;
-	sign = 1;
 	if (!nptr)
-		return (0);
+		return (LONG_MAX);
 	if (*nptr == '-' || *nptr == '+')
 	{
 		if (*nptr == '-')
-			sign = -1;
+			return (LONG_MAX);
 		nptr++;
 	}
 	while (*nptr >= '0' && *nptr <= '9')
 	{
 		res = res * 10 + (*nptr - '0');
+		if (res > INT_MAX)
+			return (LONG_MAX);
 		nptr++;
 	}
-	if (res * sign < INT_MIN || res * sign > INT_MAX)
-		return (0);
-	return ((int) res * sign);
+	return ((long) res);
 }

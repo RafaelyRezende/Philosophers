@@ -14,10 +14,9 @@ OBJ_MAIN = $(OBJ_DIR)/main.o
 # ----------------- UTILS ------------------- #
 
 DIR_UTILS = $(OBJ_DIR)/utils
-SRC_UTILS = opt_main.c \
-		standard_main.c \
-		ft_putstr_fd.c \
-		ft_atoi.c
+SRC_UTILS = ft_putstr_fd.c \
+			ft_atol.c \
+			parse_philos.c
 
 OBJ_UTILS = $(SRC_UTILS:.c=.o)
 
