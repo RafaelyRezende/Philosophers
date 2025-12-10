@@ -1,6 +1,7 @@
 #include "philo.h"
 
 static ssize_t	error_number_of_args(void);
+static bool		is_valid_number(char *str);
 
 ssize_t	parse_philos(int argc, char **argv, t_params *params)
 {
@@ -15,8 +16,6 @@ ssize_t	parse_philos(int argc, char **argv, t_params *params)
 		if (tmp == LONG_MAX)
 			return (ft_putstr_fd(1, "Invalid number.\n"));
 		num[argc - 1] = (int) tmp;
-		if (argc == 5 && num[argc - 1] > 2000)
-			return (ft_putstr_fd(1, "Invalid number of simulations.\n"));
 		if (argc == 1 && (num[argc - 1] > 200 || num[argc - 1] < 1))
 			return (ft_putstr_fd(1, "Invalid number of philosophers.\n"));
 	}
