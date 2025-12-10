@@ -44,11 +44,14 @@ $(OBJ_DIR):
 debug: CFLAGS += -g
 debug: re
 
+asan: CFLAGS += -g -fsanitize=thread
+asan: re
+
 clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm build/$(NAME)
+	@rm -f build/$(NAME)
 
 re: fclean all
 

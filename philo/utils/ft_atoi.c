@@ -17,7 +17,7 @@ int	ft_atoi(const char *nptr)
 	}
 	while (*nptr >= '0' && *nptr <= '9')
 	{
-		res += res * 10 + (*nptr - '0');
+		res = res * 10 + (*nptr - '0');
 		nptr++;
 	}
 	if (res * sign < INT_MIN || res * sign > INT_MAX)
