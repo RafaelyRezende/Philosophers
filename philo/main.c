@@ -2,8 +2,8 @@
 
 int	main(int argc, char **argv)
 {
-	t_params	params;
+	t_table table;
 
-	parse_philos(argc, argv, &params);
+	parse_philos(argc, argv, &table);
 	return (0);
 }

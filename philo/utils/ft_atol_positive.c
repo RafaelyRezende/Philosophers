@@ -1,19 +1,13 @@
 #include "philo.h"
 
-long	ft_atol(const char *nptr)
+uint64_t	ft_atol_positive(const char *nptr)
 {
 	long long	res;
 
 	res = 0;
 	if (!nptr)
 		return (LONG_MAX);
-	if (*nptr == '-' || *nptr == '+')
-	{
-		if (*nptr == '-')
-			return (LONG_MAX);
-		nptr++;
-	}
-	while (*nptr >= '0' && *nptr <= '9')
+	while (*nptr)
 	{
 		res = res * 10 + (*nptr - '0');
 		if (res > INT_MAX)
