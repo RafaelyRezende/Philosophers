@@ -2,6 +2,7 @@
 
 static void	error_number_of_args(void);
 static uint8_t	is_valid_number(char *str);
+static uint8_t	init_table(t_table *table);
 
 uint8_t	parse_philos(int argc, char **argv, t_table *table)
 {
@@ -24,8 +25,10 @@ uint8_t	parse_philos(int argc, char **argv, t_table *table)
 		table->must_eat_count = ft_atol_positive(argv[5]);
 	else
 		table->must_eat_count = -1;
-	if (table->philo_count < 1)
+	if (table->philo_count < 1 || table->philo_count > 200)
 		return (ft_putstr_fd(2, "Error: invalid simulation value.\n"), 1);
+	if (init_table(table))
+		return (ft_putstr_fd(2, "Error: could not initialize table.\n"), 1);
 	return (0);
 }
 
@@ -52,5 +55,23 @@ static uint8_t	is_valid_number(char *str)
 			return (1);
 		str++;
 	}
+	return (0);
+}
+
+static uint8_t	init_table(t_table *table)
+{
+	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->philo_count);
+	if (!table->philos)
+		return (1);
+	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * \
+			table->philo_count);
+	if (!table->forks)
+		return (free(table->philos), 1);
+	if (pthread_mutex_init(&table->write_lock, NULL) == -1)
+		return (free(table->philos), free(table->forks), 1);
+	if (pthread_mutex_init(&table->sim_lock, NULL) == -1)
+		return (free(table->philos), free(table->forks), 1);
+	memset(table->philos, 0, table->philo_count);
+	memset(table->forks, 0, table->philo_count);
 	return (0);
 }

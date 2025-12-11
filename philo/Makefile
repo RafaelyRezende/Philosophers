@@ -18,7 +18,9 @@ OBJ_MAIN = $(OBJ_DIR)/main.o
 DIR_UTILS = $(OBJ_DIR)/utils
 SRC_UTILS = ft_putstr_fd.c \
 			ft_atol_positive.c \
-			parse_philos.c
+			parse_philos.c \
+			time_utils.c \
+			cleanup.c
 
 OBJ_UTILS = $(SRC_UTILS:.c=.o)
 
@@ -48,8 +50,11 @@ $(BUILD_DIR):
 debug: CFLAGS += -g
 debug: re
 
-asan: CFLAGS += -g -fsanitize=thread
-asan: re
+asan_thread: CFLAGS += -g -fsanitize=thread
+asan_thread: re
+
+asan_addr: CFLAGS += -g -fsanitize=address
+asan_addr: re
 
 clean:
 	@rm -rf $(OBJ_DIR)
