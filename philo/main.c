@@ -1,13 +1,14 @@
-#include "philo.h"
+#include "./libs/philo.h"
 
-int	main(int argc, char **argv)
+int	main(const int argc, char **argv)
 {
 	static t_table			table;
-	static t_philo			philos[200];
-	static pthread_mutex_t	forks[200];
+	static t_philo			philos[MAX_PHILO];
+	static pthread_mutex_t	forks[MAX_PHILO];
 
 	table.philos = philos;
 	table.forks = forks;
 	parse_philos(argc, argv, &table);
+	initialize_lock_and_forks(&table, &philos);
 	return (0);
 }
