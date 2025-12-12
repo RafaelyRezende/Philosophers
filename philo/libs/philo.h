@@ -46,6 +46,7 @@ typedef struct s_table
 
 uint64_t	ft_atol_positive(const char *nptr);
 uint8_t		parse_philos(int argc, char **argv, t_table *table);
+uint8_t		initialize_locks_and_fork(t_table *table, t_philo *philos);
 void		ft_putstr_fd(int fd, char *buff);
 void		cleanup_table(t_table *table);
 
