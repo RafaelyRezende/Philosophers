@@ -19,8 +19,7 @@ DIR_UTILS = $(OBJ_DIR)/utils
 SRC_UTILS = ft_putstr_fd.c \
 			ft_atol_positive.c \
 			parse_philos.c \
-			time_utils.c \
-			cleanup.c
+			time_utils.c
 
 OBJ_UTILS = $(SRC_UTILS:.c=.o)
 

@@ -60,18 +60,9 @@ static uint8_t	is_valid_number(char *str)
 
 static uint8_t	init_table(t_table *table)
 {
-	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->philo_count);
-	if (!table->philos)
-		return (1);
-	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * \
-			table->philo_count);
-	if (!table->forks)
-		return (free(table->philos), 1);
 	if (pthread_mutex_init(&table->write_lock, NULL) == -1)
 		return (free(table->philos), free(table->forks), 1);
 	if (pthread_mutex_init(&table->sim_lock, NULL) == -1)
 		return (free(table->philos), free(table->forks), 1);
-	memset(table->philos, 0, table->philo_count);
-	memset(table->forks, 0, table->philo_count);
 	return (0);
 }
