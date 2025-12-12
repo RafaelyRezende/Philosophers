@@ -1,6 +1,6 @@
 #include "philo.h"
 
-static void	error_number_of_args(void);
+static void		error_number_of_args(void);
 static uint8_t	is_valid_number(char *str);
 static uint8_t	init_table(t_table *table);
 
@@ -14,7 +14,8 @@ uint8_t	parse_philos(int argc, char **argv, t_table *table)
 	while (i < argc)
 	{
 		if (is_valid_number(argv[i]))
-			return (ft_putstr_fd(2, "Error: arguments must be positive numbers.\n"), 1);
+			return (ft_putstr_fd(2, \
+"Error: arguments must be positive numbers.\n"), 1);
 		i++;
 	}
 	table->philo_count = ft_atol_positive(argv[1]);
@@ -40,7 +41,8 @@ static void	error_number_of_args(void)
 	ft_putstr_fd(2, "\t\t[Time to die]\n");
 	ft_putstr_fd(2, "\t\t[Time to eat]\n");
 	ft_putstr_fd(2, "\t\t[Time to sleep]\n");
-	ft_putstr_fd(2, "\t\t(Optional) [Number of times each philosopher must eat]\n");
+	ft_putstr_fd(2, \
+"\t\t(Optional) [Number of times each philosopher must eat]\n");
 }
 
 static uint8_t	is_valid_number(char *str)

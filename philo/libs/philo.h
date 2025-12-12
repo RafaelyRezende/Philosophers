@@ -1,17 +1,21 @@
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <sys/time.h>
-#include <pthread.h>
-#include <stdio.h>
-#include <stddef.h>
-#include <string.h>
-#include <limits.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <sys/time.h>
+# include <pthread.h>
+# include <stdio.h>
+# include <stddef.h>
+# include <string.h>
+# include <limits.h>
 
-typedef struct s_table t_table;
+# ifndef MAX_PHILO
+#  define MAX_PHILO 200
+# endif
+
+typedef struct s_table	t_table;
 
 typedef struct s_philo
 {

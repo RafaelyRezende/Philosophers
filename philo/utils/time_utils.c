@@ -11,9 +11,9 @@ uint64_t	get_time_ms(void)
 
 void	ft_usleep(uint64_t time_in_ms, t_table *table)
 {
-	(void)table;
 	uint64_t	start_time;
 
+	(void)table;
 	start_time = get_time_ms();
 	while ((get_time_ms() - start_time) < time_in_ms)
 		usleep(100);
