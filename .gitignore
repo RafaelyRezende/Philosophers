@@ -56,3 +56,6 @@ dkms.conf
 
 */build/philo
 objects
+
+philo/dev
+philo/test*
