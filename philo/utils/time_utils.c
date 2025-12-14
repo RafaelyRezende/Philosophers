@@ -1,6 +1,6 @@
 #include "philo.h"
 
-uint64_t	get_time_ms(void)
+long long	get_time_ms(void)
 {
 	struct timeval	tv;
 
@@ -9,9 +9,9 @@ uint64_t	get_time_ms(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	ft_usleep(uint64_t time_in_ms, t_table *table)
+void	ft_usleep(long time_in_ms, t_table *table)
 {
-	uint64_t	start_time;
+	long long	start_time;
 
 	(void)table;
 	start_time = get_time_ms();

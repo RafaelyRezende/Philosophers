@@ -1,6 +1,6 @@
 #include "philo.h"
 
-uint64_t	ft_atol_positive(const char *nptr)
+long	ft_atol_positive(const char *nptr)
 {
 	long long	res;
 

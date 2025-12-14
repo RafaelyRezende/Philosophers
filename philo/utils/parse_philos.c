@@ -1,10 +1,10 @@
 #include "philo.h"
 
-static void		error_number_of_args(void);
-static uint8_t	is_valid_number(char *str);
-static uint8_t	init_table(t_table *table);
+static void	error_number_of_args(void);
+static int	is_valid_number(char *str);
+// static int	init_table(t_table *table);
 
-uint8_t	parse_philos(int argc, char **argv, t_table *table)
+int	parse_philos(int argc, char **argv, t_table *table)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ static void	error_number_of_args(void)
 "\t\t(Optional) [Number of times each philosopher must eat]\n");
 }
 
-static uint8_t	is_valid_number(char *str)
+static int	is_valid_number(char *str)
 {
 	if (*str == '\0')
 		return (1);
