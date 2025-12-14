@@ -31,7 +31,7 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	int				philo_count;
+	long			philo_count;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
@@ -44,10 +44,13 @@ typedef struct s_table
 	t_philo			*philos;
 }	t_table;
 
-long	ft_atol_positive(const char *nptr);
-int		parse_philos(int argc, char **argv, t_table *table);
-int		initialize_locks_and_fork(t_table *table, t_philo *philos);
-void	ft_putstr_fd(int fd, char *buff);
-void	cleanup_table(t_table *table);
+long		ft_atol_positive(const char *nptr);
+int			parse_philos(int argc, char **argv, t_table *table);
+int			initialize_locks_and_forks(t_table *table, t_philo *philos);
+void		ft_putstr_fd(int fd, char *buff);
+void		cleanup_table(t_table *table);
+long long	get_time_ms(void);
+void		ft_usleep(long time_in_ms, t_table *table);
+void		*routine(void *arg);
 
 #endif

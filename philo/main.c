@@ -1,4 +1,4 @@
-#include "./libs/philo.h"
+#include "philo.h"
 
 int	main(const int argc, char **argv)
 {
@@ -9,6 +9,15 @@ int	main(const int argc, char **argv)
 	table.philos = philos;
 	table.forks = forks;
 	parse_philos(argc, argv, &table);
-	initialize_lock_and_forks(&table, &philos);
+	initialize_locks_and_forks(&table, philos);
 	return (0);
+}
+
+void	*routine(void *arg)
+{
+	t_table	*table;
+
+	table = (t_table *)arg;
+	ft_usleep(1000, table);
+	return (NULL);
 }
