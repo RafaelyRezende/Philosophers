@@ -23,8 +23,9 @@ long	ft_atol_positive(const char *nptr)
 
 int	ft_isspace(char s)
 {
-	unsigned char c = (unsigned char) s;
+	unsigned char	c;
 
+	c = (unsigned char) s;
 	if (!s)
 		return (1);
 	if ((c >= 9 && c <= 13) || c == 32)
