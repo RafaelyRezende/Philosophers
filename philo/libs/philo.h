@@ -31,22 +31,23 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	long			philo_count;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
-	long			must_eat_count;
-	long			start_time;
-	int				sim_running;
-	pthread_mutex_t	write_lock;
-	pthread_mutex_t	sim_lock;
-	pthread_mutex_t	*forks;
-	t_philo			*philos;
+	long				philo_count;
+	long				time_to_die;
+	long				time_to_eat;
+	long				time_to_sleep;
+	long				must_eat_count;
+	long long			start_time;
+	int					sim_running;
+	pthread_mutex_t		write_lock;
+	pthread_mutex_t		sim_lock;
+	pthread_mutex_t		*forks;
+	t_philo				*philos;
 }	t_table;
 
 long		ft_atol_positive(const char *nptr);
 int			parse_philos(int argc, char **argv, t_table *table);
 int			initialize_locks_and_forks(t_table *table, t_philo *philos);
+int			ft_isspace(char s);
 void		ft_putstr_fd(int fd, char *buff);
 void		cleanup_table(t_table *table);
 long long	get_time_ms(void);

@@ -47,8 +47,12 @@ static int	is_valid_number(char *str)
 {
 	if (*str == '\0')
 		return (1);
+	while (ft_isspace(*str))
+		str++;
 	if (*str == '+')
 		str++;
+	else if (*str == '-')
+		return (1);
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
