@@ -20,13 +20,14 @@ routine, (void *)&table->philos[i]) != 0)
 			table->sim_running = 0;
 			pthread_mutex_unlock(&table->sim_lock);
 			while (--i >= 0)
-				pthread_joint(tbale->philos[i].thread_id, NULL);
+				pthread_join(table->philos[i].thread_id, NULL);
 			return (1);
 		}
 		i++;
 	}
 	monitor_simulation(table);
-	end_simulation(table, i);
+	end_simulation(table);
+	return (0);
 }
 
 static void	end_simulation(t_table *table)

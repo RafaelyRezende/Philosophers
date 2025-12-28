@@ -11,10 +11,18 @@ long long	get_time_ms(void)
 
 void	ft_usleep(long time_in_ms, t_table *table)
 {
-	long long	start_time;
+	long long start_time;
 
-	(void)table;
 	start_time = get_time_ms();
 	while ((get_time_ms() - start_time) < time_in_ms)
-		usleep(100);
+	{
+		pthread_mutex_lock(&table->sim_lock);
+		if (!table->sim_running)
+		{
+			pthread_mutex_unlock(&table->sim_lock);
+			break ;
+		}
+		pthread_mutex_unlock(&table->sim_lock);
+		usleep(500); // Sleep 500 microseconds (0.5ms) for precision
+	}
 }

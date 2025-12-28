@@ -1,6 +1,6 @@
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -Ilibs
+CFLAGS = -Wall -Wextra -Werror -Ilibs -pthread
 
 NAME = philo
 
@@ -21,7 +21,8 @@ SRC_UTILS = ft_atol_positive.c \
 			time_utils.c \
 			initialization.c \
 			simulation_utils.c \
-			watcher.c
+			watcher.c \
+			routine.c
 
 OBJ_UTILS = $(SRC_UTILS:.c=.o)
 

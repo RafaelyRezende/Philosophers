@@ -8,7 +8,7 @@ static int	initialize_mutexes(t_table *table)
 		return (1);
 	if (pthread_mutex_init(&table->sim_lock, NULL) != 0)
 	{
-		pthead_mutex_destroy(&table->write_lock);
+		pthread_mutex_destroy(&table->write_lock);
 		return (1);
 	}
 	i = 0;
@@ -27,7 +27,7 @@ static int	initialize_mutexes(t_table *table)
 	return (0);
 }
 
-int	initialize_simulation(t_table *table, t_philo *philos)
+int	initialize_simulation(t_table *table)
 {
 	int	i;
 
@@ -37,12 +37,12 @@ int	initialize_simulation(t_table *table, t_philo *philos)
 	i = 0;
 	while (i < table->philo_count)
 	{
-		philos[i].id = i + 1;
-		philos[i].meals_eaten = 0;
-		philos[i].last_meal = 0;
-		philos[i].table = table;
-		philos[i].left_fork = &table->forks[i];
-		philos[i].right_fork = &table->forks[(i + 1) % table->philo_count];
+		table->philos[i].id = i + 1;
+		table->philos[i].meals_eaten = 0;
+		table->philos[i].last_meal = 0;
+		table->philos[i].table = table;
+		table->philos[i].left_fork = &table->forks[i];
+		table->philos[i].right_fork = &table->forks[(i + 1) % table->philo_count];
 		if (pthread_mutex_init(&table->philos[i].meal_lock, NULL) != 0)
 		{
 			cleanup_table(table, "Error: Mutex init failed\n", 1);
@@ -58,7 +58,7 @@ void	cleanup_table(t_table *table, char *msg, int exit_code)
 	int	i;
 
 	if (msg)
-		ft_putstr_fd(2, msg);
+		printf("%s\n", msg);
 	pthread_mutex_destroy(&table->write_lock);
 	pthread_mutex_destroy(&table->sim_lock);
 	i = 0;

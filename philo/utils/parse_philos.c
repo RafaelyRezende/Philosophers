@@ -2,7 +2,6 @@
 
 static void	error_number_of_args(void);
 static int	is_valid_number(char *str);
-// static int	init_table(t_table *table);
 
 int	parse_philos(int argc, char **argv, t_table *table)
 {
@@ -14,8 +13,7 @@ int	parse_philos(int argc, char **argv, t_table *table)
 	while (i < argc)
 	{
 		if (is_valid_number(argv[i]))
-			return (ft_putstr_fd(2, \
-"Error: arguments must be positive numbers.\n"), 1);
+			return (printf("Error: arguments must be positive numbers.\n"), 1);
 		i++;
 	}
 	table->philo_count = ft_atol_positive(argv[1]);
@@ -27,20 +25,19 @@ int	parse_philos(int argc, char **argv, t_table *table)
 	else
 		table->must_eat_count = -1;
 	if (table->philo_count < 1 || table->philo_count > 200)
-		return (ft_putstr_fd(2, "Error: invalid simulation value.\n"), 1);
+		return (printf("Error: invalid simulation value.\n"), 1);
 	return (0);
 }
 
 static void	error_number_of_args(void)
 {
-	ft_putstr_fd(2, "Error: wrong number of arguments.\n");
-	ft_putstr_fd(2, "\n\tUSAGE:\n");
-	ft_putstr_fd(2, "\t\t[Number of philosophers]\n");
-	ft_putstr_fd(2, "\t\t[Time to die]\n");
-	ft_putstr_fd(2, "\t\t[Time to eat]\n");
-	ft_putstr_fd(2, "\t\t[Time to sleep]\n");
-	ft_putstr_fd(2, \
-"\t\t(Optional) [Number of times each philosopher must eat]\n");
+	printf("Error: wrong number of arguments.\n");
+	printf("\n\tUSAGE:\n");
+	printf("\t\t[Number of philosophers]\n");
+	printf("\t\t[Time to die]\n");
+	printf("\t\t[Time to eat]\n");
+	printf("\t\t[Time to sleep]\n");
+	printf("\t\t(Optional) [Number of times each philosopher must eat]\n");
 }
 
 static int	is_valid_number(char *str)

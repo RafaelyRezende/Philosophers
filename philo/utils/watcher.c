@@ -3,12 +3,12 @@
 static int	check_must_eat_count(t_table *table, int *n_eaten)
 {
 	if (table->must_eat_count == -1)
-		return (1);
-	if (*n_eaten == tbale->philo_count)
+		return (0);
+	if (*n_eaten == table->philo_count)
 	{
-		pthread_mutex_lock(table->sim_lock);
+		pthread_mutex_lock(&table->sim_lock);
 		table->sim_running = 0;
-		pthread_mutex_unlock(table->sim_lock);
+		pthread_mutex_unlock(&table->sim_lock);
 		return (1);
 	}
 	return (0);
@@ -16,20 +16,34 @@ static int	check_must_eat_count(t_table *table, int *n_eaten)
 
 static void	handle_death(t_table *table, int id)
 {
-	pthread_mutex_lock(table->sim_lock);
+	pthread_mutex_lock(&table->sim_lock);
 	table->sim_running = 0;
-	pthread_mutex_unlock(table->sim_lock);
+	pthread_mutex_unlock(&table->sim_lock);
 	
-	pthread_mutex_lock(table->write_lock);
-	printf("%lld\tPhilo %i died.", get_time_ms() - table->start_time, id);
-	pthread_mutex_unlock(table->write_lock);
+	pthread_mutex_lock(&table->write_lock);
+	printf("%lld\tPhilo %i died.\n", get_time_ms() - table->start_time, id);
+	pthread_mutex_unlock(&table->write_lock);
+}
+
+static int check_death(t_table *table, t_philo *philo)
+{
+	long long now;
+	
+	pthread_mutex_lock(&philo->meal_lock);
+	now = get_time_ms();
+	if ((now - philo->last_meal) >= table->time_to_die)
+	{
+		pthread_mutex_unlock(&philo->meal_lock);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->meal_lock);
+	return (0);
 }
 
 void	monitor_simulation(t_table *table)
 {
 	int			i;
 	int			n_eaten;
-	long long	now;
 
 	while (1)
 	{
@@ -37,21 +51,21 @@ void	monitor_simulation(t_table *table)
 		n_eaten = 0;
 		while (i < table->philo_count)
 		{
-			pthread_mutex_lock(table->philo[i]->meal_lock);
-			now = get_time_ms();
-			if (now - table->start_time >= table->time_to_die)
+			if (check_death(table, &table->philos[i]))
 			{
-				pthread_mutex_unlock(table->philo[i]->meal_lock);
-				handle_death(table, table->philo[i].id);
+				handle_death(table, table->philos[i].id);
 				return ;
 			}
+			pthread_mutex_lock(&table->philos[i].meal_lock);
 			if (table->must_eat_count != -1 &&\
-					table->philo[i].meals_eaten >= table->must_eat_count)
+					table->philos[i].meals_eaten >= table->must_eat_count)
 				n_eaten++;
+			pthread_mutex_unlock(&table->philos[i].meal_lock);
 			i++;
 		}
 		if (check_must_eat_count(table, &n_eaten))
 			return ;
-		ft_usleep(500);
+		usleep(1000);
+		//ft_usleep(500, table);
 	}
 }
