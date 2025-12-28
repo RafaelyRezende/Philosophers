@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rluis-ya <rluis-ya@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/28 20:30:30 by rluis-ya          #+#    #+#             */
+/*   Updated: 2025/12/28 20:31:07 by rluis-ya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 long long	get_time_ms(void)
@@ -11,7 +23,7 @@ long long	get_time_ms(void)
 
 void	ft_usleep(long time_in_ms, t_table *table)
 {
-	long long start_time;
+	long long	start_time;
 
 	start_time = get_time_ms();
 	while ((get_time_ms() - start_time) < time_in_ms)
@@ -23,6 +35,6 @@ void	ft_usleep(long time_in_ms, t_table *table)
 			break ;
 		}
 		pthread_mutex_unlock(&table->sim_lock);
-		usleep(500); // Sleep 500 microseconds (0.5ms) for precision
+		usleep(500);
 	}
 }

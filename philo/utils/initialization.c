@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialization.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rluis-ya <rluis-ya@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/28 20:32:31 by rluis-ya          #+#    #+#             */
+/*   Updated: 2025/12/28 20:33:05 by rluis-ya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static int	initialize_mutexes(t_table *table)
@@ -42,7 +54,8 @@ int	initialize_simulation(t_table *table)
 		table->philos[i].last_meal = 0;
 		table->philos[i].table = table;
 		table->philos[i].left_fork = &table->forks[i];
-		table->philos[i].right_fork = &table->forks[(i + 1) % table->philo_count];
+		table->philos[i].right_fork = \
+&table->forks[(i + 1) % table->philo_count];
 		if (pthread_mutex_init(&table->philos[i].meal_lock, NULL) != 0)
 		{
 			cleanup_table(table, "Error: Mutex init failed\n", 1);
