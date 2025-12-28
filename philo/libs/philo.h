@@ -56,6 +56,7 @@ void		cleanup_table(t_table *table, char *msg, int exit_code);
 
 // Simulation
 int			run_simulation(t_table *table);
+void		monitor_simulation(t_table *table);
 
 // Utils
 long long	get_time_ms(void);

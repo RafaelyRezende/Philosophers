@@ -16,11 +16,12 @@ OBJ_MAIN = $(OBJ_DIR)/main.o
 # ----------------- UTILS ------------------- #
 
 DIR_UTILS = $(OBJ_DIR)/utils
-SRC_UTILS = ft_putstr_fd.c \
-			ft_atol_positive.c \
+SRC_UTILS = ft_atol_positive.c \
 			parse_philos.c \
 			time_utils.c \
-			initialization.c
+			initialization.c \
+			simulation_utils.c \
+			watcher.c
 
 OBJ_UTILS = $(SRC_UTILS:.c=.o)
 
