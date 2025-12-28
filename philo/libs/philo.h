@@ -44,7 +44,7 @@ typedef struct s_table
 	t_philo				*philos;
 }	t_table;
 
-/* Validation & Parsing */
+// Validation & Parsing
 long		ft_atol_positive(const char *nptr);
 int			parse_philos(int argc, char **argv, t_table *table);
 int			ft_isspace(char s);
@@ -53,6 +53,9 @@ void		ft_putstr_fd(int fd, char *buff);
 // Init & Cleanup
 int			initialize_simulation(t_table *table);
 void		cleanup_table(t_table *table, char *msg, int exit_code);
+
+// Simulation
+int			run_simulation(t_table *table);
 
 // Utils
 long long	get_time_ms(void);
