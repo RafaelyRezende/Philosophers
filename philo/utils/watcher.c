@@ -76,6 +76,6 @@ table->philos[i].meals_eaten >= table->must_eat_count)
 		}
 		if (check_must_eat_count(table, &n_eaten))
 			return ;
-		ft_usleep(500, table);
+		ft_usleep(1, table);
 	}
 }

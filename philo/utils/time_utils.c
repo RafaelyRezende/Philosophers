@@ -35,6 +35,6 @@ void	ft_usleep(long time_in_ms, t_table *table)
 			break ;
 		}
 		pthread_mutex_unlock(&table->sim_lock);
-		usleep(500);
+		usleep(50);
 	}
 }
