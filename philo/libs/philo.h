@@ -21,7 +21,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				meals_eaten;
-	long			last_meal;
+	long long		last_meal;
 	pthread_t		thread_id;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -44,12 +44,17 @@ typedef struct s_table
 	t_philo				*philos;
 }	t_table;
 
+/* Validation & Parsing */
 long		ft_atol_positive(const char *nptr);
 int			parse_philos(int argc, char **argv, t_table *table);
-int			initialize_locks_and_forks(t_table *table, t_philo *philos);
 int			ft_isspace(char s);
 void		ft_putstr_fd(int fd, char *buff);
-void		cleanup_table(t_table *table);
+
+// Init & Cleanup
+int			initialize_simulation(t_table *table);
+void		cleanup_table(t_table *table, char *msg, int exit_code);
+
+// Utils
 long long	get_time_ms(void);
 void		ft_usleep(long time_in_ms, t_table *table);
 void		*routine(void *arg);
