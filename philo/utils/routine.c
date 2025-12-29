@@ -91,7 +91,7 @@ void	*routine(void *arg)
 		ft_usleep(philo->table->time_to_sleep, philo->table);
 		print_status(philo, "is thinking");
 		if (philo->table->philo_count % 2 != 0)
-			ft_usleep(10, philo->table);
+			ft_usleep(5, philo->table);
 	}
 	return (NULL);
 }
