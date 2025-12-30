@@ -58,7 +58,7 @@ int	initialize_simulation(t_table *table)
 &table->forks[(i + 1) % table->philo_count];
 		if (pthread_mutex_init(&table->philos[i].meal_lock, NULL) != 0)
 		{
-			cleanup_table(table, "Error: Mutex init failed\n", 1);
+			cleanup_table(table, "Error: Mutex init failed\n");
 			return (1);
 		}
 		i++;
@@ -66,7 +66,7 @@ int	initialize_simulation(t_table *table)
 	return (0);
 }
 
-void	cleanup_table(t_table *table, char *msg, int exit_code)
+void	cleanup_table(t_table *table, char *msg)
 {
 	int	i;
 
@@ -81,6 +81,4 @@ void	cleanup_table(t_table *table, char *msg, int exit_code)
 		pthread_mutex_destroy(&table->philos[i].meal_lock);
 		i++;
 	}
-	if (exit_code != 0)
-		exit(exit_code);
 }

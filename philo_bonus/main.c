@@ -26,6 +26,6 @@ int	main(const int argc, char **argv)
 		return (1);
 	if (run_simulation(&table) != 0)
 		return (1);
-	cleanup_table(&table, NULL, 0);
+	cleanup_table(&table, NULL);
 	return (0);
 }
