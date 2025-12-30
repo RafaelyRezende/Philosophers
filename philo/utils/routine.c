@@ -25,13 +25,15 @@ get_time_ms() - philo->table->start_time, philo->id, str);
 	pthread_mutex_unlock(&philo->table->sim_lock);
 }
 
-static void	handle_one(t_table *table, pthread_mutex_t *ff)
+static int	handle_one(t_table *table, pthread_mutex_t *ff)
 {
 	if (table->philo_count == 1)
 	{
 		ft_usleep(table->time_to_die * 2, table);
 		pthread_mutex_unlock(ff);
+		return (1);
 	}
+	return (0);
 }
 
 static void	assign_forks(t_philo *philo,
@@ -57,7 +59,8 @@ static void	routine_eat(t_philo *philo)
 	assign_forks(philo, &ff, &sf);
 	pthread_mutex_lock(ff);
 	print_status(philo, "has taken a fork.");
-	handle_one(philo->table, ff);
+	if (handle_one(philo->table, ff))
+		return ;
 	pthread_mutex_lock(sf);
 	print_status(philo, "has taken a fork.");
 	pthread_mutex_lock(&philo->meal_lock);
@@ -76,7 +79,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		ft_usleep(10, philo->table);
+		ft_usleep(1, philo->table);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->table->sim_lock);
@@ -90,8 +93,6 @@ void	*routine(void *arg)
 		print_status(philo, "is sleeping");
 		ft_usleep(philo->table->time_to_sleep, philo->table);
 		print_status(philo, "is thinking");
-		if (philo->table->philo_count % 2 != 0)
-			ft_usleep(5, philo->table);
 	}
 	return (NULL);
 }

@@ -7,11 +7,16 @@ NAME = philo
 OBJ_DIR = objects
 BUILD_DIR = build
 TARGET = $(BUILD_DIR)/$(NAME)
+TST = $(BUILD_DIR)/unit
 
 # ----------------- MAIN ------------------- #
 
 MAIN = main.c
 OBJ_MAIN = $(OBJ_DIR)/main.o
+
+# ----------------- UNIT ------------------- #
+
+UNIT = unit.c
 
 # ----------------- UTILS ------------------- #
 
@@ -30,6 +35,11 @@ PATH_OBJ_UTILS = $(patsubst %.c,$(DIR_UTILS)/%.o,$(SRC_UTILS))
 
 # ----------------- RULES ------------------- #
 all: $(TARGET)
+
+unit: $(TST)
+
+$(TST): $(UNIT)
+	$(CC) $(CFLAGS) $< -o $@
 
 $(TARGET): $(OBJ_MAIN) $(PATH_OBJ_UTILS)
 	$(CC) $(CFLAGS) $^ -o $(TARGET)

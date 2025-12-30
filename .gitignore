@@ -59,3 +59,5 @@ objects
 
 philo/dev
 philo/test*
+
+philo/*.txt

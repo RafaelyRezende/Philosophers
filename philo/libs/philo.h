@@ -64,7 +64,7 @@ void		ft_putstr_fd(int fd, char *buff);
 
 // Init & Cleanup
 int			initialize_simulation(t_table *table);
-void		cleanup_table(t_table *table, char *msg, int exit_code);
+void		cleanup_table(t_table *table, char *msg);
 
 // Simulation
 int			run_simulation(t_table *table);
