@@ -61,3 +61,5 @@ philo/dev
 philo/test*
 
 philo/*.txt
+philo_bonus/*.txt
+philo_bonus/unit*

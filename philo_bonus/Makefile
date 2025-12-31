@@ -2,9 +2,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -Ilibs -pthread
 
-NAME = philo
+NAME = philo_bonus
 
-OBJ_DIR = objects
 BUILD_DIR = build
 TARGET = $(BUILD_DIR)/$(NAME)
 
@@ -31,8 +30,8 @@ PATH_OBJ_UTILS = $(patsubst %.c,$(DIR_UTILS)/%.o,$(SRC_UTILS))
 # ----------------- RULES ------------------- #
 all: $(TARGET)
 
-unit:
-	$(CC) $(CFLAGS) unit.c -o unit
+unit: fclean
+	$(CC) $(CFLAGS) -g unit.c -o unit
 
 $(TARGET): $(OBJ_MAIN) $(PATH_OBJ_UTILS)
 	$(CC) $(CFLAGS) $^ -o $(TARGET)
@@ -63,7 +62,8 @@ clean:
 
 fclean: clean
 	@rm -rf $(BUILD_DIR)
+	@rm -rf unit
 
 re: fclean all
 
-.PHONY: all debug clean fclean re
+.PHONY: all debug clean fclean re unit
