@@ -1,12 +1,12 @@
 #include "philo_bonus.h"
 
-extern void	test(void);
-
 int	main(int argc, char **argv)
 {
-	t_table	table;
+	t_table			table;
+	static t_philo	philos[MAX_PHILO];
+	static pid_t	pids[MAX_PHILO];
 
-	parse_philos(argc, argv, &table);
-	test();
+	initialize_wrapper(argc, argv, &table);
+	initialize_philos(&table, philos, pids);
 	return (0);
 }

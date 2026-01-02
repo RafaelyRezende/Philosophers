@@ -6,6 +6,7 @@
 # endif
 
 #include <unistd.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -17,6 +18,14 @@
 #include <errno.h>
 
 typedef struct s_table	t_table;
+
+typedef enum e_sem_label
+{
+	SEM_ERR = 1,
+	SEM_FORKS,
+	SEM_WRITE,
+	SEM_STOP
+}	t_sem_label;
 
 typedef struct s_philo
 {
@@ -42,8 +51,12 @@ typedef struct s_table
 	pid_t		*pids;
 }	t_table;
 
-int			parse_philos(int argc, char **argv, t_table *table);
-int			initialize_table(t_table *table);
+long		ft_atol_positive(const char *nptr);
+int			ft_isspace(char s);
+void		initialize_philos(t_table *table, t_philo *philos, pid_t *pids);
+void		initialize_wrapper(int argc, char **argv, t_table *table);
+int			initialize_table_params(int argc, char **argv, t_table *table);
+int			initialize_table_semaphores(t_table *table);
 long long	get_time_ms(void);
 void		ft_usleep(long time_in_ms, t_table *table);
 #endif

@@ -16,13 +16,8 @@ void	ft_usleep(long time_in_ms, t_table *table)
 	start_time = get_time_ms();
 	while ((get_time_ms() - start_time) < time_in_ms)
 	{
-		pthread_mutex_lock(&table->sim_lock);
 		if (!table->sim_running)
-		{
-			pthread_mutex_unlock(&table->sim_lock);
 			break ;
-		}
-		pthread_mutex_unlock(&table->sim_lock);
 		usleep(1);
 	}
 }

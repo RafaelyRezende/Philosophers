@@ -3,7 +3,16 @@
 static void	error_number_of_args(void);
 static int	is_valid_number(char *str);
 
-int	parse_philos(int argc, char **argv, t_table *table)
+void	initialize_wrapper(int argc, char **argv, t_table *table)
+{
+	int	status;
+
+	status = initialize_table_params(argc, argv, table);
+	if (status)
+		exit (status);
+}
+
+int	initialize_table_params(int argc, char **argv, t_table *table)
 {
 	int	i;
 
@@ -26,10 +35,11 @@ int	parse_philos(int argc, char **argv, t_table *table)
 		table->must_eat_count = -1;
 	if (table->philo_count < 1 || table->philo_count > 200)
 		return (printf("Error: invalid simulation value.\n"), 1);
-	return (0);
+	return (initialize_table_semaphores(table));
 }
 
-static void	error_number_of_args(void)
+static
+void	error_number_of_args(void)
 {
 	printf("Error: wrong number of arguments.\n");
 	printf("\n\tUSAGE:\n");
@@ -40,7 +50,8 @@ static void	error_number_of_args(void)
 	printf("\t\t(Optional) [Number of times each philosopher must eat]\n");
 }
 
-static int	is_valid_number(char *str)
+static
+int	is_valid_number(char *str)
 {
 	if (*str == '\0')
 		return (1);
@@ -57,9 +68,4 @@ static int	is_valid_number(char *str)
 		str++;
 	}
 	return (0);
-}
-
-int	initialize_semaphores(t_table *table)
-{
-	sem_unlink("/sem_
 }
