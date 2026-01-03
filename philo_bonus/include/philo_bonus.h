@@ -5,19 +5,19 @@
 #  define MAX_PHILO 200
 # endif
 
-#include <unistd.h>
-#include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <fcntl.h>
-#include <semaphore.h>
-#include <signal.h>
-#include <sys/stat.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <errno.h>
+# include <unistd.h>
+# include <limits.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <fcntl.h>
+# include <semaphore.h>
+# include <signal.h>
+# include <sys/stat.h>
+# include <sys/time.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <errno.h>
 
 typedef struct s_table	t_table;
 
@@ -62,6 +62,8 @@ typedef struct s_table
 long		ft_atol_positive(const char *nptr);
 int			ft_isspace(char s);
 void		instanciate_name(int id, char *name);
+void		handle_print(t_philo *philo, const char *str);
+
 
 /* ----------------------- INITIALIZATION ------------------------ */
 
@@ -74,6 +76,7 @@ int			initialize_table_semaphores(t_table *table);
 
 void		start_simulation(t_table *table);
 void		routine(void *arg);
+void		subroutine_eat(t_philo *philo);
 
 /* ----------------------- TIME ------------------------ */
 
@@ -82,6 +85,6 @@ void		ft_usleep(long time_in_ms);
 
 /* ----------------------- ERRORS ------------------------ */
 
-void		handle_exit(t_table *table, const char *str);
+void		handle_exit(const char *str);
 
 #endif

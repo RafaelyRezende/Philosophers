@@ -1,5 +1,8 @@
 #include "philo_bonus.h"
 
+static void	reaper(t_table *table);
+static void	kill_all(t_table *table);
+
 int	main(int argc, char **argv)
 {
 	t_table			table;
@@ -9,11 +12,52 @@ int	main(int argc, char **argv)
 	initialize_wrapper(argc, argv, &table);
 	initialize_philos(&table, philos, pids);
 	start_simulation(&table);
-	int	i = 0;
-	while (i < table.philo_count)
+	reaper(&table);
+	sem_close(table.sem_forks);
+	sem_close(table.sem_write);
+	sem_close(table.sem_stop);
+	sem_unlink("/sem_forks");
+	sem_unlink("/sem_write");
+	sem_unlink("/sem_stop");
+	return (0);
+}
+
+static
+void	kill_all(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_count)
 	{
-		waitpid(-1, NULL, 0);
+		kill(table->pids[i], SIGKILL);
 		i++;
 	}
-	return (0);
+}
+
+static
+void	reaper(t_table *table)
+{
+	int		i;
+	int		status;
+	int		exit_code;
+	pid_t	pid;
+
+	i = 0;
+	while (i < table->philo_count)
+	{
+		pid = waitpid(-1, &status, 0);
+		if (pid == -1)
+			break ;
+		if (WIFEXITED(status))
+		{
+			exit_code = WIFEXITED(status);
+			if (exit_code == 1)
+			{
+				kill_all(table);
+				return ;
+			}
+		}
+		i++;
+	}
 }

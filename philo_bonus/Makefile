@@ -21,7 +21,8 @@ SRC_UTILS = ft_atol_positive.c \
 			semaphores.c \
 			parser.c \
 			routines.c \
-			run_simulation.c
+			run_simulation.c \
+			string_utils.c
 
 OBJ_UTILS = $(SRC_UTILS:.c=.o)
 

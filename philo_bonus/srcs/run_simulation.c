@@ -10,33 +10,23 @@ void	start_simulation(t_table *table)
 	{
 		table->philos[i].pid = fork();
 		if (table->philos[i].pid == -1)
-			handle_exit(table, "Error create fork.\n");
+			handle_exit("Error create fork.\n");
 		if (table->philos[i].pid == 0)
 		{
 			table->philos[i].last_meal = table->start_time;
 			routine(&table->philos[i]);
-			handle_exit(table, NULL);
+			handle_exit(NULL);
 		}
 		i++;
 	}
 }
 
-void	handle_exit(t_table *table, const char *str)
+void	handle_exit(const char *str)
 {
-	int	status;
-
 	if (str)
 	{
 		printf("%s", str);
-		status = 1;
+		exit (1);
 	}
-	else
-		status = 0;
-	if (sem_close(table->sem_forks) == -1 && str)
-		status += 2;
-	if (sem_close(table->sem_write) == -1 && str)
-		status += 4;
-	if (sem_close(table->sem_stop) == -1 && str)
-		status += 8;
-	exit(status);
+	exit(0);
 }
