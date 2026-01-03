@@ -26,12 +26,12 @@ void	instanciate_name(int id, char *name)
 
 void	subroutine_eat(t_philo *philo)
 {
-	handle_print(philo, "is eating.");
 	if (sem_wait(philo->sem_philo_meal) == -1)
 		handle_exit("Error meal wait semaphore\n");
 	philo->last_meal = get_time_ms();
 	philo->meals_eaten++;
 	if (sem_post(philo->sem_philo_meal) == -1)
 		handle_exit("Error meal post semaphore\n");
+	handle_print(philo, "is eating.");
 	ft_usleep(philo->table->time_to_eat);
 }

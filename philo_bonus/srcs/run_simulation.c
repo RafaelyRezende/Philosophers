@@ -4,7 +4,7 @@ void	start_simulation(t_table *table)
 {
 	int		i;
 
-	table->start_time = get_time_ms();
+	table->start_time = get_time_ms() + 500;
 	i = 0;
 	while (i < table->philo_count)
 	{
@@ -17,6 +17,7 @@ void	start_simulation(t_table *table)
 			routine(&table->philos[i]);
 			handle_exit(NULL);
 		}
+		table->pids[i] = table->philos[i].pid;
 		i++;
 	}
 }

@@ -49,10 +49,10 @@ typedef struct s_table
 	long		time_to_sleep;
 	long		must_eat_count;
 	long long	start_time;
-	sem_t		*sem_forks; // Single semahpore for the forks (pool of forks)
+	sem_t		*sem_forks; // Single semahpore for the forks (pool of resources)
 	sem_t		*sem_write; // Equivalent to write_lock
 	sem_t		*sem_meal; // Equivalent to meal_lock
-	sem_t		*sem_stop; // Equivalent to sim_lock
+	sem_t		*sem_q; // Queue of philophers to catch resources
 	t_philo		*philos;
 	pid_t		*pids;
 }	t_table;

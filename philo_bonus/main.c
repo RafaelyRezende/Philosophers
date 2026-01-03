@@ -2,6 +2,7 @@
 
 static void	reaper(t_table *table);
 static void	kill_all(t_table *table);
+static void	cleanup(t_table *table);
 
 int	main(int argc, char **argv)
 {
@@ -13,12 +14,7 @@ int	main(int argc, char **argv)
 	initialize_philos(&table, philos, pids);
 	start_simulation(&table);
 	reaper(&table);
-	sem_close(table.sem_forks);
-	sem_close(table.sem_write);
-	sem_close(table.sem_stop);
-	sem_unlink("/sem_forks");
-	sem_unlink("/sem_write");
-	sem_unlink("/sem_stop");
+	cleanup(&table);
 	return (0);
 }
 
@@ -60,4 +56,15 @@ void	reaper(t_table *table)
 		}
 		i++;
 	}
+}
+
+static
+void	cleanup(t_table *table)
+{
+	sem_close(table->sem_forks);
+	sem_close(table->sem_write);
+	sem_close(table->sem_q);
+	sem_unlink("/sem_forks");
+	sem_unlink("/sem_write");
+	sem_unlink("/sem_q");
 }

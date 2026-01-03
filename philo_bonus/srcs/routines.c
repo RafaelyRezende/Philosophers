@@ -10,55 +10,59 @@ void	routine(void *arg)
 	char	name[20];
 
 	philo = (t_philo *) arg;
-	if (philo->id % 2 != 0)
-		ft_usleep(15);
 	launch_monitor(philo, name);
 	while (1)
 	{
+		if (sem_wait(philo->table->sem_q) == -1)
+			handle_exit("Error semaphore queue wait\n");
+
 		if (sem_wait(philo->table->sem_forks) == -1)
 			handle_exit("Error semaphore forks wait 1\n");
 		handle_print(philo, "has taken a fork.");
 		if (sem_wait(philo->table->sem_forks) == -1)
 			handle_exit("Error semaphore forks wait 2\n");
 		handle_print(philo, "has taken a fork.");
+
 		subroutine_eat(philo);
+
 		if (sem_post(philo->table->sem_forks) == -1)
 			handle_exit("Error semaphore forks post 1\n");
 		if (sem_post(philo->table->sem_forks) == -1)
 			handle_exit("Error semaphore forks post 2\n");
+		if (sem_post(philo->table->sem_q) == -1)
+			handle_exit("Error semaphore queue post\n");
 		handle_print(philo, "is sleeping.");
 		ft_usleep(philo->table->time_to_sleep);
 		handle_print(philo, "is thinking.");
+		usleep(500);
 	}
 	join_monitor(philo);
 }
 
 static
-void	*monitor_routine(void *arg)
+void *monitor_routine(void *arg)
 {
-	t_philo		*philo;
-	long long	delta_meal;
-
-	philo = (t_philo *)arg;
+	t_philo     *philo = (t_philo *)arg;
+	long long   time_since_meal;
+	int         eaten_copy;
+	
 	while (1)
 	{
-		if (sem_wait(philo->sem_philo_meal) == -1)
-			handle_exit("Error read meal semaphore wait\n");
-		delta_meal = get_time_ms() - philo->last_meal;
-		if (sem_post(philo->sem_philo_meal) == -1)
-			handle_exit("Error read meal semaphore post\n");
-		if (delta_meal >= philo->table->time_to_die)
+		sem_wait(philo->sem_philo_meal);
+		time_since_meal = get_time_ms() - philo->last_meal;
+		eaten_copy = philo->meals_eaten;
+		sem_post(philo->sem_philo_meal);
+		if (time_since_meal >= philo->table->time_to_die)
 		{
-			if (sem_wait(philo->table->sem_write) == -1)
-				handle_exit("Error write semaphore wait on monitor\n");
-			printf("%lld\t#%d\t%s\n", \
-get_time_ms() - philo->table->start_time, philo->id, "died");
+			sem_wait(philo->table->sem_write);
+			printf("%lld %d died\n", \
+get_time_ms() - philo->table->start_time, philo->id);
 			exit(1);
 		}
 		if (philo->table->must_eat_count != -1 && \
-philo->meals_eaten == philo->table->must_eat_count)
+eaten_copy >= philo->table->must_eat_count)
 			exit(0);
-		ft_usleep(1);
+		usleep(1000);
 	}
 	return (NULL);
 }
@@ -66,6 +70,10 @@ philo->meals_eaten == philo->table->must_eat_count)
 static
 void	launch_monitor(t_philo *philo, char *name)
 {
+	while (get_time_ms() < philo->table->start_time)
+		usleep(100);
+	if (philo->id % 2 == 0)
+		ft_usleep(20);
 	philo->sem_name = name;
 	instanciate_name(philo->id, philo->sem_name);
 	sem_unlink(philo->sem_name);
@@ -73,7 +81,7 @@ void	launch_monitor(t_philo *philo, char *name)
 	if (philo->sem_philo_meal == SEM_FAILED)
 		exit(1);
 	if (pthread_create(&philo->thread, NULL, \
-monitor_routine, (void *)philo) == -1)
+monitor_routine, philo) != 0)
 		handle_exit("Error thread create\n");
 }
 
@@ -82,6 +90,8 @@ void	join_monitor(t_philo *philo)
 {
 	if (pthread_join(philo->thread, NULL) != 0)
 		handle_exit("Error thread join\n");
+	sem_close(philo->sem_philo_meal);
+	sem_unlink(philo->sem_name);
 }
 
 void	handle_print(t_philo *philo, const char *str)
