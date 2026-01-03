@@ -36,7 +36,11 @@ int	parse_philos(int argc, char **argv, t_table *table)
 		table->must_eat_count = ft_atol_positive(argv[5]);
 	else
 		table->must_eat_count = -1;
-	if (table->philo_count < 1 || table->philo_count > 200)
+	if (table->philo_count < 1 || table->philo_count > 200 || \
+table->philo_count <= 0 || \
+table->time_to_die <= 0 || \
+table->time_to_eat <= 0 || \
+table->time_to_sleep <= 0)
 		return (printf("Error: invalid simulation value.\n"), 1);
 	return (0);
 }
