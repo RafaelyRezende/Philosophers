@@ -10,6 +10,8 @@ void	routine(void *arg)
 	char	name[20];
 
 	philo = (t_philo *) arg;
+	if (philo->id % 2 != 0)
+		ft_usleep(15);
 	launch_monitor(philo, name);
 	while (1)
 	{
