@@ -64,7 +64,6 @@ int			ft_isspace(char s);
 void		instanciate_name(int id, char *name);
 void		handle_print(t_philo *philo, const char *str);
 
-
 /* ----------------------- INITIALIZATION ------------------------ */
 
 void		initialize_philos(t_table *table, t_philo *philos, pid_t *pids);
