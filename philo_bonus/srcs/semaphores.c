@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   semaphores.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rluis-ya <rluis-ya@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/03 19:06:46 by rluis-ya          #+#    #+#             */
+/*   Updated: 2026/01/03 19:07:14 by rluis-ya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
 
 static int	handle_error(t_table *table, t_sem_label label);
@@ -15,12 +27,12 @@ O_CREAT, 0644, table->philo_count);
 	n = table->philo_count;
 	if (n > 1)
 		n--;
-	table->sem_q= sem_open("/sem_q", O_CREAT, 0644, n);
+	table->sem_q = sem_open("/sem_q", O_CREAT, 0644, n);
 	if (table->sem_forks == SEM_FAILED)
 		return (handle_error(table, SEM_FORKS));
 	if (table->sem_write == SEM_FAILED)
 		return (handle_error(table, SEM_WRITE));
-	if (table->sem_q== SEM_FAILED)
+	if (table->sem_q == SEM_FAILED)
 		return (handle_error(table, SEM_STOP));
 	return (0);
 }

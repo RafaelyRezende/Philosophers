@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   string_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rluis-ya <rluis-ya@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/03 19:06:37 by rluis-ya          #+#    #+#             */
+/*   Updated: 2026/01/03 19:06:38 by rluis-ya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
 
 static
@@ -34,4 +46,12 @@ void	subroutine_eat(t_philo *philo)
 		handle_exit("Error meal post semaphore\n");
 	handle_print(philo, "is eating.");
 	ft_usleep(philo->table->time_to_eat);
+}
+
+void	helper_routine(t_philo *philo)
+{
+	handle_print(philo, "is sleeping.");
+	ft_usleep(philo->table->time_to_sleep);
+	handle_print(philo, "is thinking.");
+	usleep(500);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routines.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rluis-ya <rluis-ya@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/03 19:07:29 by rluis-ya          #+#    #+#             */
+/*   Updated: 2026/01/03 19:11:21 by rluis-ya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
 
 static void	*monitor_routine(void *arg);
@@ -15,37 +27,32 @@ void	routine(void *arg)
 	{
 		if (sem_wait(philo->table->sem_q) == -1)
 			handle_exit("Error semaphore queue wait\n");
-
 		if (sem_wait(philo->table->sem_forks) == -1)
 			handle_exit("Error semaphore forks wait 1\n");
 		handle_print(philo, "has taken a fork.");
 		if (sem_wait(philo->table->sem_forks) == -1)
 			handle_exit("Error semaphore forks wait 2\n");
 		handle_print(philo, "has taken a fork.");
-
 		subroutine_eat(philo);
-
 		if (sem_post(philo->table->sem_forks) == -1)
 			handle_exit("Error semaphore forks post 1\n");
 		if (sem_post(philo->table->sem_forks) == -1)
 			handle_exit("Error semaphore forks post 2\n");
 		if (sem_post(philo->table->sem_q) == -1)
 			handle_exit("Error semaphore queue post\n");
-		handle_print(philo, "is sleeping.");
-		ft_usleep(philo->table->time_to_sleep);
-		handle_print(philo, "is thinking.");
-		usleep(500);
+		helper_routine(philo);
 	}
 	join_monitor(philo);
 }
 
 static
-void *monitor_routine(void *arg)
+void	*monitor_routine(void *arg)
 {
-	t_philo     *philo = (t_philo *)arg;
-	long long   time_since_meal;
-	int         eaten_copy;
-	
+	t_philo		*philo;
+	long long	time_since_meal;
+	int			eaten_copy;
+
+	philo = (t_philo *)arg;
 	while (1)
 	{
 		sem_wait(philo->sem_philo_meal);

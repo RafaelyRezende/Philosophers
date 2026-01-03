@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rluis-ya <rluis-ya@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/03 19:05:25 by rluis-ya          #+#    #+#             */
+/*   Updated: 2026/01/03 19:06:04 by rluis-ya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
@@ -49,7 +61,7 @@ typedef struct s_table
 	long		time_to_sleep;
 	long		must_eat_count;
 	long long	start_time;
-	sem_t		*sem_forks; // Single semahpore for the forks (pool of resources)
+	sem_t		*sem_forks; // Single semahpore for the forks (pool)
 	sem_t		*sem_write; // Equivalent to write_lock
 	sem_t		*sem_meal; // Equivalent to meal_lock
 	sem_t		*sem_q; // Queue of philophers to catch resources
@@ -76,6 +88,7 @@ int			initialize_table_semaphores(t_table *table);
 void		start_simulation(t_table *table);
 void		routine(void *arg);
 void		subroutine_eat(t_philo *philo);
+void		helper_routine(t_philo *philo);
 
 /* ----------------------- TIME ------------------------ */
 
