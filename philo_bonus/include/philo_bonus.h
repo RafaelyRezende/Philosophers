@@ -37,6 +37,8 @@ typedef struct s_philo
 	t_table		*table;
 	pthread_t	thread;
 	pid_t		pid;
+	sem_t		*sem_philo_meal;
+	char		*sem_name;
 }	t_philo;
 
 typedef struct s_table
@@ -59,6 +61,7 @@ typedef struct s_table
 
 long		ft_atol_positive(const char *nptr);
 int			ft_isspace(char s);
+void		instanciate_name(int id, char *name);
 
 /* ----------------------- INITIALIZATION ------------------------ */
 
@@ -75,7 +78,7 @@ void		routine(void *arg);
 /* ----------------------- TIME ------------------------ */
 
 long long	get_time_ms(void);
-void		ft_usleep(long time_in_ms, t_table *table);
+void		ft_usleep(long time_in_ms);
 
 /* ----------------------- ERRORS ------------------------ */
 
