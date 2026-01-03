@@ -17,8 +17,11 @@ OBJ_MAIN = $(OBJ_DIR)/main.o
 
 DIR_UTILS = $(OBJ_DIR)/utils
 SRC_UTILS = ft_atol_positive.c \
+			time_utils.c \
 			semaphores.c \
-			parser.c
+			parser.c \
+			routines.c \
+			run_simulation.c
 
 OBJ_UTILS = $(SRC_UTILS:.c=.o)
 

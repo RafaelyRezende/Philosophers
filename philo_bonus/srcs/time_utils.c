@@ -13,11 +13,8 @@ void	ft_usleep(long time_in_ms, t_table *table)
 {
 	long long	start_time;
 
+	(void)table;
 	start_time = get_time_ms();
-	while ((get_time_ms() - start_time) < time_in_ms)
-	{
-		if (!table->sim_running)
-			break ;
-		usleep(1);
-	}
+	while ((get_time_ms() - start_time < time_in_ms))
+		usleep(10);
 }
