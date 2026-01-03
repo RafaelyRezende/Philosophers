@@ -93,7 +93,8 @@ void	*routine(void *arg)
 		print_status(philo, "is sleeping");
 		ft_usleep(philo->table->time_to_sleep, philo->table);
 		print_status(philo, "is thinking");
-		if ((philo->table->time_to_die - philo->table->time_to_sleep - philo->table->time_to_eat) >= 100)
+		if ((philo->table->time_to_die - \
+philo->table->time_to_sleep - philo->table->time_to_eat) >= 100)
 			ft_usleep(10, philo->table);
 	}
 	return (NULL);
